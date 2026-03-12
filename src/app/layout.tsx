@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Outfit } from "next/font/google";
+import { ToastProvider } from "@/components/ui/Toast";
+import { RESTAURANT_INFO } from "@/lib/config";
 import "./globals.css";
 
 const inter = Inter({
@@ -28,6 +30,34 @@ export const metadata: Metadata = {
   },
 };
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Restaurant",
+  name: RESTAURANT_INFO.name,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: "Main Street",
+    addressLocality: "Roscommon",
+    addressCountry: "IE",
+  },
+  telephone: RESTAURANT_INFO.phone,
+  servesCuisine: "Japanese",
+  priceRange: RESTAURANT_INFO.priceRange,
+  aggregateRating: {
+    "@type": "AggregateRating",
+    ratingValue: RESTAURANT_INFO.rating,
+    reviewCount: RESTAURANT_INFO.totalReviews,
+  },
+  openingHoursSpecification: [
+    { "@type": "OpeningHoursSpecification", dayOfWeek: "Tuesday", opens: "12:00", closes: "21:00" },
+    { "@type": "OpeningHoursSpecification", dayOfWeek: "Wednesday", opens: "12:00", closes: "21:00" },
+    { "@type": "OpeningHoursSpecification", dayOfWeek: "Thursday", opens: "12:00", closes: "21:00" },
+    { "@type": "OpeningHoursSpecification", dayOfWeek: "Friday", opens: "12:00", closes: "22:00" },
+    { "@type": "OpeningHoursSpecification", dayOfWeek: "Saturday", opens: "12:00", closes: "22:00" },
+    { "@type": "OpeningHoursSpecification", dayOfWeek: "Sunday", opens: "13:00", closes: "21:00" },
+  ],
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -35,10 +65,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body
         className={`${inter.variable} ${outfit.variable} font-sans bg-bg-primary text-text-primary antialiased`}
       >
-        {children}
+        <ToastProvider>{children}</ToastProvider>
       </body>
     </html>
   );
