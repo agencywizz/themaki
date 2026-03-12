@@ -1,4 +1,5 @@
 import Image from "next/image";
+import ScrollReveal from "@/components/ScrollReveal";
 import { RESTAURANT_INFO } from "@/lib/config";
 
 const QUICK_LINKS = [
@@ -43,52 +44,58 @@ export default function Footer() {
   return (
     <footer className="bg-bg-surface py-12 px-4">
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div>
-          <div className="flex items-center gap-2 mb-4">
-            <Image src="/logo.svg" alt="MAKI" width={32} height={32} />
-            <span className="font-brand text-lg font-bold text-text-primary">
-              MAKI
-            </span>
+        <ScrollReveal direction="up" delay={0}>
+          <div>
+            <div className="flex items-center gap-2 mb-4">
+              <Image src="/logo.svg" alt="MAKI" width={32} height={32} />
+              <span className="font-brand text-lg font-bold text-text-primary">
+                MAKI
+              </span>
+            </div>
+            <p className="text-text-secondary text-sm">
+              &copy; {new Date().getFullYear()} {RESTAURANT_INFO.name}. All rights
+              reserved.
+            </p>
           </div>
-          <p className="text-text-secondary text-sm">
-            &copy; {new Date().getFullYear()} {RESTAURANT_INFO.name}. All rights
-            reserved.
-          </p>
-        </div>
+        </ScrollReveal>
 
-        <div>
-          <h3 className="font-bold text-text-primary mb-4">Quick Links</h3>
-          <ul className="space-y-2">
-            {QUICK_LINKS.map((link) => (
-              <li key={link.href}>
+        <ScrollReveal direction="up" delay={150}>
+          <div>
+            <h3 className="font-bold text-text-primary mb-4">Quick Links</h3>
+            <ul className="space-y-2">
+              {QUICK_LINKS.map((link) => (
+                <li key={link.href}>
+                  <a
+                    href={link.href}
+                    className="text-text-secondary hover:text-accent transition-colors text-sm"
+                  >
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </ScrollReveal>
+
+        <ScrollReveal direction="up" delay={300}>
+          <div>
+            <h3 className="font-bold text-text-primary mb-4">Follow Us</h3>
+            <div className="flex gap-4">
+              {SOCIAL_LINKS.map((social) => (
                 <a
-                  href={link.href}
-                  className="text-text-secondary hover:text-accent transition-colors text-sm"
+                  key={social.name}
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-text-secondary hover:text-accent transition-colors"
+                  aria-label={social.name}
                 >
-                  {link.label}
+                  {social.icon}
                 </a>
-              </li>
-            ))}
-          </ul>
-        </div>
-
-        <div>
-          <h3 className="font-bold text-text-primary mb-4">Follow Us</h3>
-          <div className="flex gap-4">
-            {SOCIAL_LINKS.map((social) => (
-              <a
-                key={social.name}
-                href={social.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-text-secondary hover:text-accent transition-colors"
-                aria-label={social.name}
-              >
-                {social.icon}
-              </a>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
+        </ScrollReveal>
       </div>
     </footer>
   );

@@ -1,4 +1,5 @@
 import Card from "@/components/ui/Card";
+import ScrollReveal from "@/components/ScrollReveal";
 import { RESTAURANT_INFO } from "@/lib/config";
 import { REVIEWS } from "@/lib/reviews-data";
 
@@ -23,44 +24,52 @@ export default function Reviews() {
   return (
     <section id="reviews" className="py-20 px-4">
       <div className="max-w-7xl mx-auto">
-        <h2 className="font-brand text-3xl md:text-4xl font-bold text-text-primary text-center mb-12">
-          What Our Guests Say
-        </h2>
+        <ScrollReveal direction="up" delay={0}>
+          <h2 className="font-brand text-3xl md:text-4xl font-bold text-text-primary text-center mb-12">
+            What Our Guests Say
+          </h2>
+        </ScrollReveal>
 
-        <div className="text-center mb-12">
-          <div className="text-6xl font-brand font-bold text-accent mb-2">
-            {RESTAURANT_INFO.rating}
+        <ScrollReveal direction="up" delay={150}>
+          <div className="text-center mb-12">
+            <div className="text-6xl font-brand font-bold text-accent mb-2">
+              {RESTAURANT_INFO.rating}
+            </div>
+            <StarRating rating={Math.round(RESTAURANT_INFO.rating)} />
+            <p className="text-text-secondary mt-2">
+              Based on {RESTAURANT_INFO.totalReviews} reviews
+            </p>
           </div>
-          <StarRating rating={Math.round(RESTAURANT_INFO.rating)} />
-          <p className="text-text-secondary mt-2">
-            Based on {RESTAURANT_INFO.totalReviews} reviews
-          </p>
-        </div>
+        </ScrollReveal>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {REVIEWS.map((review) => (
-            <Card key={review.id} className="p-6">
-              <StarRating rating={review.rating} />
-              <p className="text-text-secondary mt-4 mb-4 italic">
-                &ldquo;{review.text}&rdquo;
-              </p>
-              <p className="text-text-primary font-bold text-sm">
-                {review.author}
-              </p>
-            </Card>
+          {REVIEWS.map((review, i) => (
+            <ScrollReveal key={review.id} direction="up" delay={i * 150}>
+              <Card className="p-6 h-full">
+                <StarRating rating={review.rating} />
+                <p className="text-text-secondary mt-4 mb-4 italic">
+                  &ldquo;{review.text}&rdquo;
+                </p>
+                <p className="text-text-primary font-bold text-sm">
+                  {review.author}
+                </p>
+              </Card>
+            </ScrollReveal>
           ))}
         </div>
 
-        <div className="text-center mt-10">
-          <a
-            href={`https://www.google.com/maps/search/${RESTAURANT_INFO.googleMapsQuery}`}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-accent hover:text-accent-light transition-colors underline"
-          >
-            See all reviews on Google
-          </a>
-        </div>
+        <ScrollReveal direction="up" delay={300}>
+          <div className="text-center mt-10">
+            <a
+              href={`https://www.google.com/maps/search/${RESTAURANT_INFO.googleMapsQuery}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-accent hover:text-accent-light transition-colors underline"
+            >
+              See all reviews on Google
+            </a>
+          </div>
+        </ScrollReveal>
       </div>
     </section>
   );

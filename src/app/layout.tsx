@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Outfit } from "next/font/google";
 import { ToastProvider } from "@/components/ui/Toast";
+import ProgressiveBlur from "@/components/ProgressiveBlur";
 import { RESTAURANT_INFO } from "@/lib/config";
 import "./globals.css";
 
@@ -75,6 +76,7 @@ export default function RootLayout({
         className={`${inter.variable} ${outfit.variable} font-sans bg-bg-primary text-text-primary antialiased`}
       >
         <ToastProvider>{children}</ToastProvider>
+        <ProgressiveBlur />
       </body>
     </html>
   );
